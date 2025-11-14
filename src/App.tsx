@@ -10,7 +10,7 @@ import { PodcastPage } from './pages/PodcastPage'
 
 function App() {
   return (
-    <BrowserRouter basename="/aimediac1">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/quran" element={<QuranPage />} />

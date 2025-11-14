@@ -3,8 +3,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true'
+
 export default defineConfig({
-  base: '/aimediac1/', // GitHub Pages base path (adjust based on your repo name)
+  base: isVercel ? '/' : '/aimediac1/',
   plugins: [
     react(),
     tsconfigPaths(),
