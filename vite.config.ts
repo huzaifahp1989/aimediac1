@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  base: '/A-islam-media-website/', // GitHub Pages base path (adjust based on your repo name)
+  base: '/aimediac1/', // GitHub Pages base path (adjust based on your repo name)
   plugins: [
     react(),
     tsconfigPaths(),
@@ -52,18 +52,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/api\.aladhan\.com\/.*$/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'prayer-times-cache',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/icecast\.maxxwave\.co\.uk\/.*$/,
+            urlPattern: /^https:\/\/a4\.asurahosting\.com\/.*$/,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'radio-stream-cache',
