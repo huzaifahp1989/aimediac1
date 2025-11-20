@@ -154,6 +154,10 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 VITE_FIREBASE_APP_ID=your_firebase_app_id
 ```
 
+> If your package registry is restricted (for example, in offline CI), the repo ships a minimal type shim at
+> `src/types/firebase-modules.d.ts` so `pnpm check` still passes. Install the official `firebase` SDK locally to get the real
+> runtime behavior.
+
 With the env keys set, the app will:
 - List cities (sorted) on `/prayer-times`
 - List masjids with search, favourites, directions, and pull-to-refresh on `/prayer-times/:cityId`
