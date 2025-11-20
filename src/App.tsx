@@ -7,6 +7,10 @@ import { RadioPage } from './pages/RadioPage'
 import { KidsZonePage } from './pages/KidsZonePage'
 import { LoginPage } from './pages/LoginPage'
 import { PodcastPage } from './pages/PodcastPage'
+import { CitiesPage } from './pages/CitiesPage'
+import { MasjidListPage } from './pages/MasjidListPage'
+import { MasjidTimetablePage } from './pages/MasjidTimetablePage'
+import { AdminTimetablesPage } from './pages/AdminTimetablesPage'
 
 function App() {
   return (
@@ -22,7 +26,10 @@ function App() {
         <Route path="/quizzes" element={<div>Quizzes Page - Coming Soon</div>} />
         <Route path="/competitions" element={<div>Competitions Page - Coming Soon</div>} />
         <Route path="/qa" element={<QAPage />} />
-        <Route path="/prayer-times" element={<div>Prayer Times Page - Coming Soon</div>} />
+        <Route path="/prayer-times" element={<CitiesPage />} />
+        <Route path="/prayer-times/:cityId" element={<MasjidListPage />} />
+        <Route path="/prayer-times/:cityId/:masjidId" element={<MasjidTimetablePage />} />
+        <Route path="/admin/timetables" element={<AdminTimetablesPage />} />
         <Route path="/events" element={<div>Events Page - Coming Soon</div>} />
         <Route path="/donate" element={<div>Donate Page - Coming Soon</div>} />
         <Route path="/login" element={<LoginPage />} />
