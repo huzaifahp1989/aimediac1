@@ -111,6 +111,55 @@ The website can be installed as a Progressive Web App on mobile devices:
 4. Configure Row Level Security (RLS) policies
 5. Set up storage buckets for file uploads
 
+### Salah Timetable & Masjid Finder (Firebase)
+The salah timetable experience is powered by Firebase Firestore and Storage. Configure it with the following structure:
+
+**Firestore collections**
+```
+cities (collection)
+  [cityId] (document)
+    name: string
+    region: string
+    country: string
+
+    masjids (subcollection)
+      [masjidId] (document)
+        name: string
+        address: string
+        website: string
+        fajr: string
+        zuhr: string
+        asr: string
+        maghrib: string
+        isha: string
+        jummah_1: string
+        jummah_2: string
+        timetable_pdf_url: string
+```
+
+**Firebase Storage path**
+```
+/timetables/{city}/{masjid}.pdf
+```
+
+**Environment variables**
+
+Copy `.env.example` to `.env` and fill in your Firebase project keys:
+```
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+```
+
+With the env keys set, the app will:
+- List cities (sorted) on `/prayer-times`
+- List masjids with search, favourites, directions, and pull-to-refresh on `/prayer-times/:cityId`
+- Show salah times and timetable PDF/image on `/prayer-times/:cityId/:masjidId`
+- Allow admin uploads on the hidden `/admin/timetables` route (uploads timetable PDFs/images to the Storage path above and stores the URL in Firestore).
+
 ### Prayer Times
 The app uses fallback prayer times for London, UK to ensure reliable functionality without external API dependencies.
 
