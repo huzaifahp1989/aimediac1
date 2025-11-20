@@ -164,6 +164,11 @@ With the env keys set, the app will:
 - Show salah times and timetable PDF/image on `/prayer-times/:cityId/:masjidId`
 - Allow admin uploads on the hidden `/admin/timetables` route (uploads timetable PDFs/images to the Storage path above and stores the URL in Firestore).
 
+#### Preview without Firebase credentials
+- If you want to preview the UI without provisioning Firebase or downloading the SDK, the build automatically falls back to an in-memory stub with sample cities and masjids.
+- Set `VITE_ENABLE_FIREBASE_STUB=false` to force the app to require real Firebase configuration.
+- When the stub is active you can still exercise the admin form and "upload" files; they are stored in-memory for the preview session only.
+
 ### Prayer Times
 The app uses fallback prayer times for London, UK to ensure reliable functionality without external API dependencies.
 

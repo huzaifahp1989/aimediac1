@@ -1,9 +1,31 @@
+import { createRequire } from 'node:module'
+import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+const require = createRequire(import.meta.url)
 const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true'
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
+
+const hasFirebaseDeps = (() => {
+  try {
+    require.resolve('firebase/app')
+    return true
+  } catch {
+    return false
+  }
+})()
+
+const firebaseStubAliases = hasFirebaseDeps
+  ? {}
+  : {
+      'firebase/app': resolve(__dirname, './src/stubs/firebase/app.ts'),
+      'firebase/firestore': resolve(__dirname, './src/stubs/firebase/firestore.ts'),
+      'firebase/storage': resolve(__dirname, './src/stubs/firebase/storage.ts')
+    }
 
 export default defineConfig({
   base: isVercel ? '/' : '/aimediac1/',
@@ -68,6 +90,11 @@ export default defineConfig({
       }
     })
   ],
+  resolve: {
+    alias: {
+      ...firebaseStubAliases
+    }
+  },
   server: {
     port: 3000,
     host: true

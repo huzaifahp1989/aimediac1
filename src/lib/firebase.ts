@@ -12,10 +12,16 @@ const firebaseConfig = {
 }
 
 const isConfigPresent = Object.values(firebaseConfig).every(Boolean)
+const allowStubFallback = import.meta.env.VITE_ENABLE_FIREBASE_STUB !== 'false'
 
 const initializeFirebaseApp = (): FirebaseApp | undefined => {
-  if (!isConfigPresent) return undefined
-  return getApps()[0] ?? initializeApp(firebaseConfig)
+  if (isConfigPresent) return getApps()[0] ?? initializeApp(firebaseConfig)
+
+  if (allowStubFallback) {
+    return getApps()[0] ?? initializeApp({ name: 'stubbed-firebase-app' })
+  }
+
+  return undefined
 }
 
 export const firebaseApp = initializeFirebaseApp()
@@ -29,3 +35,4 @@ if (typeof window !== 'undefined' && db) {
 }
 
 export const isFirebaseConfigured = Boolean(firebaseApp)
+export const isUsingFirebaseStub = !isConfigPresent && allowStubFallback
